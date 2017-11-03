@@ -38,4 +38,29 @@ class Clock {
   }
 }
 
-const clock = new Clock();
+// const clock = new Clock();
+
+//// addNumbers
+
+const readline = require('readline');
+
+const reader = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+function addNumbers(sum, numsLeft, completionCallback) {
+  if (numsLeft > 0) {
+    // reader.question("Please give me a number.", (answer, 10) => { parseInt })
+    reader.question("Please give me a number.", function(answer) {
+      sum += parseInt(answer, 10);
+      console.log(`The partial sum is ${sum}`);
+      addNumbers(sum, numsLeft - 1, completionCallback);
+    });
+  } else {
+    completionCallback(sum);
+    reader.close();
+  }
+}
+
+addNumbers(0, 3, sum => console.log(`Total Sum: ${sum}`));
